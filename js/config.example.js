@@ -1,0 +1,5 @@
+export const CONFIG = {
+  SUPABASE_URL: "https://SEU-PROJETO.supabase.co",
+  SUPABASE_PUBLISHABLE_KEY: "sb_publishable_SUA_CHAVE_AQUI",
+  APP_NAME: "BancoHora Pro 2.0"
+};
