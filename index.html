@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07111d">
+  <title>BancoHora Pro 2.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/styles.css?v=2.1.0">
+</head>
+<body>
+  <div class="bg-grid"></div><div class="glow glow-a"></div><div class="glow glow-b"></div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <section id="setupView" class="center-shell hidden">
+    <div class="auth-card glass wide-card">
+      <div class="brand"><div class="logo-mark">BH</div><div><strong>BancoHora</strong><span>PRO 2.0</span></div></div>
+      <div class="eyebrow">CONFIGURAÇÃO NECESSÁRIA</div>
+      <h1>Conecte seu projeto Supabase</h1>
+      <p class="muted">Copie <b>js/config.example.js</b> para <b>js/config.js</b> e preencha a URL e a Publishable Key do seu projeto. Depois execute o arquivo SQL da pasta <b>supabase</b>.</p>
+      <div class="code-card"><code>SUPABASE_URL + SUPABASE_PUBLISHABLE_KEY</code></div>
+      <a class="btn primary" href="./README.md" target="_blank">Abrir instruções</a>
+    </div>
+  </section>
+
+  <section id="authView" class="auth-shell hidden">
+    <div class="auth-copy">
+      <div class="brand"><div class="logo-mark">BH</div><div><strong>BancoHora</strong><span>PRO 2.0</span></div></div>
+      <div class="eyebrow">GESTÃO EMPRESARIAL DE HORAS</div>
+      <h1>Banco de horas com segurança, histórico e visão em tempo real.</h1>
+      <p>Centralize funcionários, créditos, débitos, relatórios e comunicação em um único painel empresarial.</p>
+      <div class="auth-benefits">
+        <div><b>Multiempresa</b><span>Dados isolados por empresa</span></div>
+        <div><b>Auditável</b><span>Histórico de cada lançamento</span></div>
+        <div><b>Responsivo</b><span>Computador, tablet e celular</span></div>
+      </div>
+    </div>
+
+    <div class="auth-card glass">
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-auth-tab="login">Entrar</button>
+        <button class="auth-tab" data-auth-tab="signup">Criar conta</button>
+      </div>
+      <form id="loginForm" class="form-stack auth-form active-form">
+        <div><div class="eyebrow">ACESSO</div><h2>Bem-vindo de volta</h2></div>
+        <label>E-mail<input name="email" type="email" autocomplete="email" required></label>
+        <label>Senha<input name="password" type="password" autocomplete="current-password" required minlength="6"></label>
+        <button class="btn primary wide" type="submit">Entrar</button>
+        <button id="forgotPasswordBtn" class="link-btn" type="button">Esqueci minha senha</button>
+      </form>
+      <form id="signupForm" class="form-stack auth-form">
+        <div><div class="eyebrow">NOVA CONTA</div><h2>Crie seu acesso</h2></div>
+        <label>Seu nome<input name="full_name" required></label>
+        <label>E-mail<input name="email" type="email" autocomplete="email" required></label>
+        <label>Senha<input name="password" type="password" autocomplete="new-password" required minlength="8"></label>
+        <button class="btn primary wide" type="submit">Criar conta</button>
+        <small class="muted">Após confirmar o e-mail, você poderá cadastrar sua empresa.</small>
+      </form>
+    </div>
+  </section>
+
+  <section id="onboardingView" class="center-shell hidden">
+    <div class="auth-card glass wide-card">
+      <div class="brand"><div class="logo-mark">BH</div><div><strong>BancoHora</strong><span>PRO 2.0</span></div></div>
+      <div class="eyebrow">PRIMEIRO ACESSO</div>
+      <h1>Cadastre sua empresa</h1>
+      <p class="muted">Essa empresa ficará vinculada ao seu usuário como proprietário.</p>
+      <form id="onboardingForm" class="form-grid">
+        <label>Nome da empresa<input name="name" required></label>
+        <label>CNPJ<input name="cnpj"></label>
+        <label>WhatsApp<input name="phone" placeholder="5511999999999"></label>
+        <label>Endereço<input name="address"></label>
+        <div class="form-actions full"><button id="onboardingLogout" type="button" class="btn ghost">Sair</button><button class="btn primary" type="submit">Criar empresa e acessar</button></div>
+      </form>
+    </div>
+  </section>
+
+  <section id="appView" class="app hidden">
+    <aside class="sidebar">
+      <div class="brand"><div id="companyLogoMini" class="logo-mark">BH</div><div><strong id="sidebarCompanyName">BancoHora</strong><span>PRO 2.0</span></div></div>
+      <nav>
+        <button class="nav-item active" data-page="dashboard"><span class="nav-icon">◈</span><span>Dashboard</span></button>
+        <button class="nav-item" data-page="employees"><span class="nav-icon">▦</span><span>Funcionários</span></button>
+        <button class="nav-item" data-page="reports"><span class="nav-icon">◫</span><span>Relatórios</span></button>
+        <button class="nav-item" data-page="users"><span class="nav-icon">◎</span><span>Usuários</span></button>
+        <button class="nav-item" data-page="company"><span class="nav-icon">⚙</span><span>Empresa</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="user-mini"><div id="userAvatar" class="avatar">U</div><div><b id="userName">Usuário</b><small id="userRole">Responsável</small></div></div>
+        <button id="logoutBtn" class="btn ghost wide">Sair</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div><div class="eyebrow">PAINEL EMPRESARIAL</div><h2 id="pageTitle">Visão geral</h2></div>
+        <div class="top-actions">
+          <button id="refreshBtn" class="btn ghost">↻ Atualizar</button>
+          <button id="sendAllBtn" class="btn ghost">WhatsApp geral</button>
+          <button id="newEmployeeBtn" class="btn primary">+ Novo funcionário</button>
+        </div>
+      </header>
+
+      <section id="dashboard" class="page active-page">
+        <div class="kpi-grid">
+          <article class="kpi-card"><span>Funcionários ativos</span><strong id="kpiEmployees">0</strong><small>Equipe atual</small></article>
+          <article class="kpi-card"><span>Horas positivas</span><strong id="kpiPositive">+0h</strong><small>Crédito acumulado</small></article>
+          <article class="kpi-card"><span>Horas negativas</span><strong id="kpiNegative">-0h</strong><small>A compensar</small></article>
+          <article class="kpi-card"><span>Saldo líquido</span><strong id="kpiNet">0h</strong><small>Resultado consolidado</small></article>
+        </div>
+        <div class="panel-grid">
+          <article class="panel">
+            <div class="panel-head"><div><div class="eyebrow">EQUIPE</div><h3>Saldos em destaque</h3></div><button class="link-btn" data-goto="employees">Ver todos</button></div>
+            <div id="featuredEmployees" class="employee-list"></div>
+          </article>
+          <article class="panel">
+            <div class="panel-head"><div><div class="eyebrow">ATIVIDADE</div><h3>Últimos lançamentos</h3></div></div>
+            <div id="activityList" class="activity-list"></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="employees" class="page">
+        <div class="toolbar panel">
+          <input id="searchEmployee" placeholder="Pesquisar nome, matrícula, cargo ou setor">
+          <select id="filterBalance"><option value="all">Todos os saldos</option><option value="positive">Positivo</option><option value="negative">Negativo</option><option value="zero">Zerado</option></select>
+          <select id="filterStatus"><option value="active">Ativos</option><option value="inactive">Inativos</option><option value="all">Todos</option></select>
+        </div>
+        <div id="employeeGrid" class="employee-grid"></div>
+      </section>
+
+      <section id="reports" class="page">
+        <article class="panel">
+          <div class="panel-head"><div><div class="eyebrow">ANÁLISE</div><h3>Relatório por período</h3></div><button id="printReportBtn" class="btn ghost">Imprimir / PDF</button></div>
+          <div class="report-controls">
+            <label>Data inicial<input id="reportStart" type="date"></label>
+            <label>Data final<input id="reportEnd" type="date"></label>
+            <label>Setor<select id="reportSector"><option value="all">Todos</option></select></label>
+            <label>Situação<select id="reportBalance"><option value="all">Todos</option><option value="positive">Positivo</option><option value="negative">Negativo</option><option value="zero">Zerado</option></select></label>
+          </div>
+          <div id="reportSummary" class="mini-kpis"></div>
+          <div id="reportTableWrap" class="table-wrap"></div>
+        </article>
+      </section>
+
+      <section id="users" class="page">
+        <article class="panel">
+          <div class="panel-head"><div><div class="eyebrow">ACESSOS</div><h3>Usuários da empresa</h3></div><button id="inviteUserBtn" class="btn primary">+ Convidar usuário</button></div>
+          <div class="role-help"><b>Proprietário:</b> acesso total. <b>Administrador:</b> funcionários e horas. <b>Responsável:</b> pode lançar horas, sem alterar configurações críticas.</div>
+          <div id="usersList" class="users-list"></div>
+        </article>
+      </section>
+
+      <section id="company" class="page">
+        <article class="panel company-panel">
+          <div class="panel-head"><div><div class="eyebrow">CONFIGURAÇÕES</div><h3>Dados da empresa</h3></div></div>
+          <div class="company-settings-grid">
+            <div class="logo-uploader">
+              <div id="companyLogoPreview" class="company-logo-preview">BH</div>
+              <label class="btn ghost file-btn">Alterar logo<input id="companyLogoInput" type="file" accept="image/png,image/jpeg,image/webp"></label>
+              <small class="muted">PNG, JPG ou WEBP.</small>
+            </div>
+            <form id="companyForm" class="form-grid">
+              <label>Nome da empresa<input id="companyName" required></label>
+              <label>CNPJ<input id="companyCnpj"></label>
+              <label>WhatsApp<input id="companyPhone"></label>
+              <label>Endereço<input id="companyAddress"></label>
+              <div class="form-actions full"><button class="btn primary" type="submit">Salvar alterações</button></div>
+            </form>
+          </div>
+        </article>
+      </section>
+    </main>
+  </section>
+
+  <div id="modalBackdrop" class="modal-backdrop hidden"><div id="modal" class="modal glass"></div></div>
+  <script type="module" src="./js/app.js?v=2.1.0"></script>
+</body>
+</html>
